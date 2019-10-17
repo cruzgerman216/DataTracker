@@ -3,29 +3,7 @@ import axios from "axios";
 function Addinteraction({ getdayobject, setgetdayobject }) {
   const [newdata, setnewdata] = useState("");
   const [selectdatafield, setSelectDataField] = useState("number");
-  var staticdata = {
-    name: "Main Section",
-    header1: {
-      name: "header1",
-      type: "section",
-      subheader1: {
-        name: "subheader1",
-        type: "subsection"
-      }
-    },
-    header2: {
-      name: "header2",
-      type: "section",
-      subheader2: {
-        name: "subheader2",
-        type: "subsection",
-        subsubheader2: {
-          name: "subsubheader2",
-          type: "subsubsection"
-        }
-      }
-    }
-  };
+
   //getdayobject and data might be completely different
   async function getdata() {
     var url = "http://localhost:3001/dayObject";
@@ -131,7 +109,7 @@ function Addinteraction({ getdayobject, setgetdayobject }) {
       console.log("this is getdayobject");
     } else {
       let selectdata;
-      if (selectdatafield === "text") {
+      if (selectdatafield === "text" || selectdatafield === "textarea") {
         selectdata = "";
       } else if (selectdatafield === "number") {
         selectdata = 0;
@@ -175,6 +153,7 @@ function Addinteraction({ getdayobject, setgetdayobject }) {
         <select value={selectdatafield} onChange={changeselectdatafield}>
           <option value="number">Number</option>
           <option value="text">Text</option>
+          <option value="textarea">Textarea</option>
         </select>
         <button type="submit">add Datafield</button>
       </form>

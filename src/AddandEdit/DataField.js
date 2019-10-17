@@ -6,29 +6,7 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
   const [newdata, setnewdata] = useState("");
   const [editdf, setEditDF] = useState(false);
   const [DFname, setDFname] = useState("");
-  var staticdata = {
-    name: "Main Section",
-    header1: {
-      name: "header1",
-      type: "section",
-      subheader1: {
-        name: "subheader1",
-        type: "subsection"
-      }
-    },
-    header2: {
-      name: "header2",
-      type: "section",
-      subheader2: {
-        name: "subheader2",
-        type: "subsection",
-        subsubheader2: {
-          name: "subsubheader2",
-          type: "subsubsection"
-        }
-      }
-    }
-  };
+
   //getdayobject and data might be completely different
   async function getdata() {
     var url = "http://localhost:3001/dayObject";
@@ -48,8 +26,12 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
         console.log("success", checkobject);
         console.log("secccuess 1.5 this is staticd data", staticd.data);
         if (checkobject.input === "number") {
+          console.log("this is newdata", newdata);
           staticd.data += parseInt(newdata);
-        } else if (checkobject.input === "text") {
+        } else if (
+          checkobject.input === "text" ||
+          checkobject.input === "textarea"
+        ) {
           staticd.data = newdata;
         }
         getcheckobject = staticd;
@@ -73,6 +55,46 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
     console.log("getcheckobject", getcheckobject);
     return getcheckobject;
   }
+
+  //resetdata using parameters
+  function resetdata(staticd, checkobject) {
+    console.log("YOU ARE IN Reset DATA");
+    let getcheckobject;
+    let on = false;
+    Object.keys(staticd).map(function(key, index) {
+      if (staticd[key] === checkobject.name) {
+        console.log("Found ", checkobject.name);
+
+        if (checkobject.input === "number") {
+          staticd.data = 0;
+          console.log("testing the test");
+        } else if (
+          checkobject.input === "text" ||
+          checkobject.input === "textarea"
+        ) {
+          staticd.data = "";
+        }
+        getcheckobject = staticd;
+        on = true;
+        return getcheckobject;
+      } else {
+        if (typeof staticd[key] == "object") {
+          //grab the key for this object
+          staticd[key] = resetdata(staticd[key], checkobject);
+          getcheckobject = staticd;
+
+          //return staticd[key];
+        } else {
+          if (!on) {
+            getcheckobject = staticd;
+          }
+        }
+      }
+    });
+    console.log("getcheckobject", getcheckobject);
+    return getcheckobject;
+  }
+
   //getstaticd or overall object, grab object prop name, then object you want to add
   function addData(staticd, objectname, checkobject) {
     let getcheckobject;
@@ -205,16 +227,45 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
       <button onClick={clickEditDF}>Edit {getdayobject.name}</button>
     </div>
   );
+
+  const resetDataField = async () => {
+    var url = "http://localhost:3001/dayObject";
+    let getd = await getdata();
+    // await console.log(getd);
+    if (getd == getdayobject) {
+      console.log("this is getdayobject");
+    } else {
+      var rd = await resetdata(getd, getdayobject);
+      console.log("this si getdayobject", rd);
+      console.log("you reseted data");
+    }
+    // getd[newdata] = { name: newdata, type: "section" };
+    await axios.put(url, rd).then(response => {
+      setgetdayobject(rd);
+    });
+  };
+  var displaytypeofinput =
+    getdayobject.input === "number" ? (
+      <input value={newdata} onChange={changeNewData} name="section" />
+    ) : getdayobject.input === "text" ? (
+      <input value={newdata} onChange={changeNewData} name="section" />
+    ) : (
+      <textarea value={newdata} onChange={changeNewData} name="section">
+        Write extensive data here
+      </textarea>
+    );
   return (
     <div>
+      {console.log("this getdayobject", getdayobject.input)}
       <h6> {getdayobject.name}</h6>
       <p>Data: {getdayobject.data}</p>
       <form onSubmit={submitAddHeader}>
-        <input value={newdata} onChange={changeNewData} name="section" />
+        {displaytypeofinput}
         <button type="submit">update {getdayobject.name}</button>
       </form>
       {editDF}
       <button onClick={deleteDataField}>Delete {getdayobject.name}</button>
+      <button onClick={resetDataField}>Reset {getdayobject.name}</button>
     </div>
   );
 }

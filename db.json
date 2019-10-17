@@ -5,13 +5,27 @@
     "DailyAverageCaloriesDays": 1
   },
   "dayObject": {
+    "date": "",
+    "id": "",
     "name": "Main Section",
     "type": "section",
     "hahahaha": {
       "name": "hahahaha",
       "type": "datafield",
-      "data": 669,
+      "data": 0,
       "input": "number"
+    },
+    "testext": {
+      "name": "testext",
+      "type": "datafield",
+      "data": "This is about a kid name cruz.",
+      "input": "text"
+    },
+    "TestTextArea": {
+      "name": "TestTextArea",
+      "type": "datafield",
+      "data": "dfgdfg",
+      "input": "textarea"
     }
   },
   "TodoList": [
@@ -1509,6 +1523,55 @@
       },
       "dailytodo": {
         "room": true,
+        "feedDog": false
+      },
+      "body": {
+        "morningweight": 0,
+        "nightweight": 0,
+        "HoursSlept": 0,
+        "details": "",
+        "Energylevels": ""
+      },
+      "studying": {
+        "ProgrammingHours": 0,
+        "WhatDidYouLearnToday": "",
+        "WhatDidYouDoToday": ""
+      }
+    },
+    {
+      "date": "10/16/2019",
+      "id": "10162019",
+      "CalorieIntake": 0,
+      "Workout": {
+        "pushups": 0,
+        "Situps": 0,
+        "dumbbellsFrontRaises": {
+          "sets": 0,
+          "weight": 0,
+          "countperset": 0
+        },
+        "Shoulder": {
+          "dumbbellShoulderPress": {
+            "sets": 0,
+            "weight": 0,
+            "countperset": 0
+          }
+        },
+        "Legs": {
+          "LegPresses": {
+            "sets": 0,
+            "weight": 0,
+            "countperset": 0
+          },
+          "LegSquats": {
+            "sets": 0,
+            "weight": 0,
+            "countperset": 0
+          }
+        }
+      },
+      "dailytodo": {
+        "room": false,
         "feedDog": false
       },
       "body": {

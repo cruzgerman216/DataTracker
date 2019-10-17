@@ -26,17 +26,31 @@ function App() {
   // //use effect
   const hook = () => {
     console.log("effect");
-    var testobject = {};
-    var teststring = "teststring1";
-    testobject[teststring] = "test success";
     axios.get("http://localhost:3001/TodoList").then(response => {
       setTodoList(response.data);
     });
 
     axios.get("http://localhost:3001/dayObject").then(response => {
       setgetdayobject(response.data);
-    });
 
+      axios.get("http://localhost:3001/days").then(response => {
+        var d = new Date();
+        var dstring =
+          d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+        var correctmonth = d.getMonth() + 1;
+        var getdate =
+          correctmonth.toString() +
+          d.getDate().toString() +
+          d.getFullYear().toString();
+        var getCurrentdate = response.data.filter(D => D.date === dstring);
+        console.log("getcurrentdate", getCurrentdate);
+        if (getCurrentdate.length === 0) {
+          console.log("making new list");
+        } else {
+          console.log("getting already made list");
+        }
+      });
+    });
     axios.get("http://localhost:3001/days").then(response => {
       var d = new Date();
       var dstring =
@@ -102,6 +116,7 @@ function App() {
           setCurrentStatistics(DayObject);
         });
       } else {
+        console.log("getdayobject", getdayobject);
         let length = response.data.length - 1;
         setCurrentStatistics(response.data[length]);
       }
