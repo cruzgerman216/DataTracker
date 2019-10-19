@@ -206,6 +206,7 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
     console.log(e.target.value);
   };
 
+  console.log();
   const deleteDataField = async e => {
     console.log("YOU ARE INSIDE DELETE");
     var url = "http://localhost:3001/dayObject";
