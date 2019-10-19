@@ -26,6 +26,54 @@
       "type": "datafield",
       "data": "dfgdfg",
       "input": "textarea"
+    },
+    "testsection": {
+      "name": "testsection",
+      "type": "section",
+      "testsectiondatafield": {
+        "name": "testsectiondatafield",
+        "type": "datafield",
+        "data": 0,
+        "input": "number"
+      }
+    },
+    "data": {
+      "name": "data",
+      "type": "datafield",
+      "data": 0,
+      "input": "number"
+    },
+    "test": {
+      "name": "test",
+      "type": "datafield",
+      "data": 0,
+      "input": "number",
+      "haha": {
+        "name": "haha",
+        "type": "datafield",
+        "data": 0,
+        "input": "number"
+      }
+    },
+    "added": {
+      "name": "added",
+      "type": "section",
+      "test": {
+        "name": "test",
+        "type": "section",
+        "haha": {
+          "name": "haha",
+          "type": "datafield",
+          "data": 0,
+          "input": "number"
+        }
+      }
+    },
+    "hey": {
+      "name": "hey",
+      "type": "datafield",
+      "data": 0,
+      "input": "number"
     }
   },
   "TodoList": [
@@ -1541,50 +1589,142 @@
     {
       "date": "10/16/2019",
       "id": "10162019",
-      "CalorieIntake": 0,
-      "Workout": {
-        "pushups": 0,
-        "Situps": 0,
-        "dumbbellsFrontRaises": {
-          "sets": 0,
-          "weight": 0,
-          "countperset": 0
-        },
-        "Shoulder": {
-          "dumbbellShoulderPress": {
-            "sets": 0,
-            "weight": 0,
-            "countperset": 0
-          }
-        },
-        "Legs": {
-          "LegPresses": {
-            "sets": 0,
-            "weight": 0,
-            "countperset": 0
-          },
-          "LegSquats": {
-            "sets": 0,
-            "weight": 0,
-            "countperset": 0
-          }
+      "name": "Main Section",
+      "type": "section",
+      "hahahaha": {
+        "name": "hahahaha",
+        "type": "datafield",
+        "data": 0,
+        "input": "number"
+      },
+      "testext": {
+        "name": "testext",
+        "type": "datafield",
+        "data": "This is about a kid name cruz.",
+        "input": "text"
+      },
+      "TestTextArea": {
+        "name": "TestTextArea",
+        "type": "datafield",
+        "data": "dfgdfg",
+        "input": "textarea"
+      },
+      "testsection": {
+        "name": "testsection",
+        "type": "section",
+        "testsectiondatafield": {
+          "name": "testsectiondatafield",
+          "type": "datafield",
+          "data": 0,
+          "input": "number"
+        }
+      }
+    },
+    {
+      "date": "10/18/2019",
+      "id": "10182019",
+      "name": "Main Section",
+      "type": "section",
+      "hahahaha": {
+        "name": "hahahaha",
+        "type": "datafield",
+        "data": 0,
+        "input": "number"
+      },
+      "testext": {
+        "name": "testext",
+        "type": "datafield",
+        "data": "This is about a kid name cruz.",
+        "input": "text"
+      },
+      "TestTextArea": {
+        "name": "TestTextArea",
+        "type": "datafield",
+        "data": "dfgdfg",
+        "input": "textarea"
+      },
+      "testsection": {
+        "name": "testsection",
+        "type": "section",
+        "testsectiondatafield": {
+          "name": "testsectiondatafield",
+          "type": "datafield",
+          "data": 0,
+          "input": "number"
+        }
+      }
+    },
+    {
+      "date": "10/19/2019",
+      "id": "10192019",
+      "name": "Main Section",
+      "type": "section",
+      "hahahaha": {
+        "name": "hahahaha",
+        "type": "datafield",
+        "data": 0,
+        "input": "number"
+      },
+      "testext": {
+        "name": "testext",
+        "type": "datafield",
+        "data": "This is about a kid name cruz.",
+        "input": "text"
+      },
+      "TestTextArea": {
+        "name": "TestTextArea",
+        "type": "datafield",
+        "data": "dfgdfg",
+        "input": "textarea"
+      },
+      "testsection": {
+        "name": "testsection",
+        "type": "section",
+        "testsectiondatafield": {
+          "name": "testsectiondatafield",
+          "type": "datafield",
+          "data": 0,
+          "input": "number"
         }
       },
-      "dailytodo": {
-        "room": false,
-        "feedDog": false
+      "data": {
+        "name": "data",
+        "type": "datafield",
+        "data": 0,
+        "input": "number"
       },
-      "body": {
-        "morningweight": 0,
-        "nightweight": 0,
-        "HoursSlept": 0,
-        "details": "",
-        "Energylevels": ""
+      "test": {
+        "name": "test",
+        "type": "datafield",
+        "data": 75,
+        "input": "number",
+        "haha": {
+          "name": "haha",
+          "type": "datafield",
+          "data": 0,
+          "input": "number"
+        }
       },
-      "studying": {
-        "ProgrammingHours": 0,
-        "WhatDidYouLearnToday": "",
-        "WhatDidYouDoToday": ""
+      "added": {
+        "name": "added",
+        "type": "section",
+        "test": {
+          "name": "test",
+          "type": "section",
+          "haha": {
+            "name": "haha",
+            "type": "datafield",
+            "data": 0,
+            "input": "number"
+          },
+          "data": 43
+        }
+      },
+      "hey": {
+        "name": "hey",
+        "type": "datafield",
+        "data": 0,
+        "input": "number"
       }
     }
   ]

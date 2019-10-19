@@ -162,19 +162,41 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
     return getcheckobject;
   }
 
-  const submitAddHeader = async e => {
+  const submitUpdateDatafield = async e => {
     e.preventDefault();
-    var url = "http://localhost:3001/dayObject";
-    let getd = await getdata();
-    // await console.log(getd);
-    if (getd == getdayobject) {
-      console.log("this is getdayobject");
-    } else {
-      var updated = updatedata(getd, getdayobject);
-      console.log("this si getdayobject", updated);
-    }
-    // getd[newdata] = { name: newdata, type: "section" };
-    axios.put(url, updated).then(response => {
+    // var url = "http://localhost:3001/dayObject";
+    // let getd = await getdata();
+
+    // // await console.log(getd);
+    // if (getd == getdayobject) {
+    //   console.log("this is getdayobject");
+    // } else {
+    //   var updated = updatedata(getd, getdayobject);
+    //   console.log("this si getdayobject", updated);
+    // }
+    // // getd[newdata] = { name: newdata, type: "section" };
+    // axios.put(url, updated).then(response => {
+    //   setgetdayobject(updated);
+    // });
+
+    let url = "http://localhost:3001/days/";
+    let d = new Date();
+    let correctmonth = d.getMonth() + 1;
+    let getdate =
+      correctmonth.toString() +
+      d.getDate().toString() +
+      d.getFullYear().toString();
+    let getd = await axios.get(url + getdate);
+    getd = getd.data;
+    console.log("this is getd", getd);
+
+    let copygetday = getdayobject;
+    copygetday.data = newdata;
+    let updated = updatedata(getd, copygetday);
+
+    console.log("updated", updated);
+
+    axios.put(url + updated.id, updated).then(response => {
       setgetdayobject(updated);
     });
   };
@@ -256,10 +278,9 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
     );
   return (
     <div>
-      {console.log("this getdayobject", getdayobject.input)}
       <h6> {getdayobject.name}</h6>
       <p>Data: {getdayobject.data}</p>
-      <form onSubmit={submitAddHeader}>
+      <form onSubmit={submitUpdateDatafield}>
         {displaytypeofinput}
         <button type="submit">update {getdayobject.name}</button>
       </form>

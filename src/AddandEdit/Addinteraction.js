@@ -44,17 +44,15 @@ function Addinteraction({ getdayobject, setgetdayobject }) {
         }
       }
     });
-    console.log("getcheckobject", getcheckobject);
     return getcheckobject;
   }
   //getstaticd or overall object, grab object prop name, then object you want to add
-  function addData(staticd, objectname, checkobject) {
+  function addsection(staticd, objectname, checkobject) {
     let getcheckobject;
     let on = false;
     Object.keys(staticd).map(function(key, index) {
       if (staticd[key] === objectname) {
         //console.log("Found ", checkobject.name);
-        console.log("success", staticd);
 
         staticd[checkobject.name] = checkobject;
         getcheckobject = staticd;
@@ -63,7 +61,7 @@ function Addinteraction({ getdayobject, setgetdayobject }) {
       } else {
         if (typeof staticd[key] == "object") {
           //grab the key for this object
-          staticd[key] = addData(staticd[key], objectname, checkobject);
+          staticd[key] = addsection(staticd[key], objectname, checkobject);
           getcheckobject = staticd;
           console.log("equals object", staticd);
         } else {
@@ -73,36 +71,47 @@ function Addinteraction({ getdayobject, setgetdayobject }) {
         }
       }
     });
-    console.log("this is get object", getcheckobject);
     return getcheckobject;
   }
-  const submitAddHeader = async e => {
+  const submitAddSection = async e => {
     e.preventDefault();
-    var url = "http://localhost:3001/dayObject";
+    let url = "http://localhost:3001/dayObject";
+    let url2 = "http://localhost:3001/days/";
 
+    let data = await axios.get(url2);
+    var newd = { name: newdata, type: "section" };
+    var test = addsection(
+      data.data[data.data.length - 1],
+      getdayobject.name,
+      newd
+    );
+
+    let getnewobject = test;
+    let getnewdata = data.data;
+    getnewdata[getnewdata.length - 1] = test;
     let getd = await getdata();
     // await console.log(getd);
     if (getd == getdayobject) {
       console.log("this is getdayobject");
     } else {
-      var newd = { name: newdata, type: "section" };
-      console.log("getd", getd);
-      console.log("getdayobject", getdayobject);
-      console.log("newd", newd);
-
-      var updated = addData(getd, getdayobject.name, newd);
+      var updated = addsection(getd, getdayobject.name, newd);
     }
 
-    axios.put(url, updated).then(response => {
-      setgetdayobject(updated);
+    await axios.put(url, updated).then(response => {});
+    await axios.put(url2 + getnewobject.id, getnewobject).then(response => {
+      setgetdayobject(getnewdata[getnewdata.length - 1]);
+      //setgetdayobject(updated);
     });
+    axios.put("http://localhost:3001/days3/10182019", { tofsfd: "dfg" });
   };
 
-  const submitAddDataField = async e => {
+  const submitaddsectionField = async e => {
     console.log("number 2 select data field", selectdatafield);
     e.preventDefault();
     var url = "http://localhost:3001/dayObject";
-
+    let url2 = "http://localhost:3001/days/";
+    let data = await axios.get(url2);
+    let daysdata = data.data;
     let getd = await getdata();
     // await console.log(getd);
     if (getd == getdayobject) {
@@ -122,14 +131,21 @@ function Addinteraction({ getdayobject, setgetdayobject }) {
         data: selectdata,
         input: selectdatafield
       };
-      var updated = addData(getd, getdayobject.name, newd);
+      var updated = addsection(getd, getdayobject.name, newd);
 
-      console.log("this si getdayobject", getdayobject);
+      var updateddays = addsection(
+        daysdata[daysdata.length - 1],
+        getdayobject.name,
+        newd
+      );
+      console.log("updated days", updateddays);
+
+      axios.put(url, updated).then(response => {});
+
+      axios.put(url2 + updateddays.id, updateddays).then(response => {
+        setgetdayobject(updateddays);
+      });
     }
-
-    axios.put(url, updated).then(response => {
-      setgetdayobject(updated);
-    });
   };
   const changeNewData = e => {
     setnewdata(e.target.value);
@@ -137,18 +153,16 @@ function Addinteraction({ getdayobject, setgetdayobject }) {
   };
   const changeselectdatafield = async e => {
     await setSelectDataField(e.target.value);
-    await console.log(selectdatafield);
   };
   return (
     <div>
       <h4>Add a Section in {getdayobject.name}</h4>
-      <p>This is german cruz </p>
-      <form onSubmit={submitAddHeader}>
+      <form onSubmit={submitAddSection}>
         <input value={newdata} onChange={changeNewData} name="section" />
         <button type="submit">add section</button>
       </form>
       <h4>Add a datafield in {getdayobject.name}</h4>
-      <form onSubmit={submitAddDataField}>
+      <form onSubmit={submitaddsectionField}>
         <input value={newdata} onChange={changeNewData} name="section" />
         <select value={selectdatafield} onChange={changeselectdatafield}>
           <option value="number">Number</option>

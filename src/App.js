@@ -32,7 +32,7 @@ function App() {
 
     axios.get("http://localhost:3001/dayObject").then(response => {
       setgetdayobject(response.data);
-
+      var test = response.data;
       axios.get("http://localhost:3001/days").then(response => {
         var d = new Date();
         var dstring =
@@ -42,85 +42,92 @@ function App() {
           correctmonth.toString() +
           d.getDate().toString() +
           d.getFullYear().toString();
+        test.date = dstring;
+        test.id = getdate;
         var getCurrentdate = response.data.filter(D => D.date === dstring);
-        console.log("getcurrentdate", getCurrentdate);
         if (getCurrentdate.length === 0) {
+          console.log("this is test", test);
+
           console.log("making new list");
+          axios.post("http://localhost:3001/days", test).then(response => {
+            setgetdayobject(test);
+          });
         } else {
-          console.log("getting already made list");
+          console.log("getdayobject", getdayobject);
+          let length = response.data.length - 1;
+          console.log("this is response.data", response.data[length]);
+          setgetdayobject(response.data[length]);
         }
       });
     });
-    axios.get("http://localhost:3001/days").then(response => {
-      var d = new Date();
-      var dstring =
-        d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
-      var correctmonth = d.getMonth() + 1;
-      var getdate =
-        correctmonth.toString() +
-        d.getDate().toString() +
-        d.getFullYear().toString();
-      var getCurrentdate = response.data.filter(D => D.date === dstring);
-      if (getCurrentdate.length === 0) {
-        const DayObject = {
-          date: dstring,
-          id: getdate,
-          CalorieIntake: 0,
-          Workout: {
-            pushups: 0,
-            Situps: 0,
-            dumbbellsFrontRaises: {
-              sets: 0,
-              weight: 0,
-              countperset: 0
-            },
-            Shoulder: {
-              dumbbellShoulderPress: {
-                sets: 0,
-                weight: 0,
-                countperset: 0
-              }
-            },
-            Legs: {
-              LegPresses: {
-                sets: 0,
-                weight: 0,
-                countperset: 0
-              },
-              LegSquats: {
-                sets: 0,
-                weight: 0,
-                countperset: 0
-              }
-            }
-          },
-          dailytodo: {
-            room: false,
-            feedDog: false
-          },
-          body: {
-            morningweight: 0,
-            nightweight: 0,
-            HoursSlept: 0,
-            details: "",
-            Energylevels: ""
-          },
-          studying: {
-            ProgrammingHours: 0,
-            WhatDidYouLearnToday: "",
-            WhatDidYouDoToday: ""
-          }
-        };
+    // axios.get("http://localhost:3001/days").then(response => {
+    //   var d = new Date();
+    //   var dstring =
+    //     d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+    //   var correctmonth = d.getMonth() + 1;
+    //   var getdate =
+    //     correctmonth.toString() +
+    //     d.getDate().toString() +
+    //     d.getFullYear().toString();
+    //   var getCurrentdate = response.data.filter(D => D.date === dstring);
+    //   if (getCurrentdate.length === 0) {
+    //     const DayObject = {
+    //       date: dstring,
+    //       id: getdate,
+    //       CalorieIntake: 0,
+    //       Workout: {
+    //         pushups: 0,
+    //         Situps: 0,
+    //         dumbbellsFrontRaises: {
+    //           sets: 0,
+    //           weight: 0,
+    //           countperset: 0
+    //         },
+    //         Shoulder: {
+    //           dumbbellShoulderPress: {
+    //             sets: 0,
+    //             weight: 0,
+    //             countperset: 0
+    //           }
+    //         },
+    //         Legs: {
+    //           LegPresses: {
+    //             sets: 0,
+    //             weight: 0,
+    //             countperset: 0
+    //           },
+    //           LegSquats: {
+    //             sets: 0,
+    //             weight: 0,
+    //             countperset: 0
+    //           }
+    //         }
+    //       },
+    //       dailytodo: {
+    //         room: false,
+    //         feedDog: false
+    //       },
+    //       body: {
+    //         morningweight: 0,
+    //         nightweight: 0,
+    //         HoursSlept: 0,
+    //         details: "",
+    //         Energylevels: ""
+    //       },
+    //       studying: {
+    //         ProgrammingHours: 0,
+    //         WhatDidYouLearnToday: "",
+    //         WhatDidYouDoToday: ""
+    //       }
+    //     };
 
-        axios.post("http://localhost:3001/days", DayObject).then(response => {
-          setCurrentStatistics(DayObject);
-        });
-      } else {
-        console.log("getdayobject", getdayobject);
-        let length = response.data.length - 1;
-        setCurrentStatistics(response.data[length]);
-      }
-    });
+    //     axios.post("http://localhost:3001/days", DayObject).then(response => {
+    //       setCurrentStatistics(DayObject);
+    //     });
+    //   } else {
+    //
+    //   }
+    // });
   };
   useEffect(hook, []);
   // console.log("render", counter.length, "counter");
@@ -196,24 +203,19 @@ function App() {
   ) : (
     <button onClick={handleProgramming}>Show programming info</button>
   );
+
+  //   <WebcamCapture
+  //   currentstatistics={currentstatistics}
+  //   setCurrentStatistics={setCurrentStatistics}
+  // />
+  // <img src={currentstatistics.dailyimage} />
+
   return (
     <div>
-      <h3>Daily Date: {currentstatistics.date}</h3>
-      <WebcamCapture
-        currentstatistics={currentstatistics}
-        setCurrentStatistics={setCurrentStatistics}
-      />
-      <img src={currentstatistics.dailyimage} />
+      <h3>Daily Date: {getdayobject.date}</h3>
+
       <Todolist todolist={todolist} setTodoList={setTodoList} />
 
-      <Dailytodo
-        currentstatistics={currentstatistics}
-        setCurrentStatistics={setCurrentStatistics}
-      />
-      {getFoodCompoent}
-      {getWorkoutComponent}
-      {getBodyComponent}
-      {getProgramming}
       <PastData pastdata={pastdata} setPastData={setPastData} />
 
       <Sections getdayobject={getdayobject} setgetdayobject={setgetdayobject} />
