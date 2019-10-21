@@ -5,75 +5,13 @@
     "DailyAverageCaloriesDays": 1
   },
   "dayObject": {
-    "date": "",
-    "id": "",
+    "date": "10/20/2019",
+    "id": "10202019",
     "name": "Main Section",
     "type": "section",
-    "hahahaha": {
-      "name": "hahahaha",
-      "type": "datafield",
-      "data": 0,
-      "input": "number"
-    },
-    "testext": {
-      "name": "testext",
-      "type": "datafield",
-      "data": "This is about a kid name cruz.",
-      "input": "text"
-    },
-    "TestTextArea": {
-      "name": "TestTextArea",
-      "type": "datafield",
-      "data": "dfgdfg",
-      "input": "textarea"
-    },
-    "testsection": {
-      "name": "testsection",
-      "type": "section",
-      "testsectiondatafield": {
-        "name": "testsectiondatafield",
-        "type": "datafield",
-        "data": 0,
-        "input": "number"
-      }
-    },
-    "data": {
-      "name": "data",
-      "type": "datafield",
-      "data": 0,
-      "input": "number"
-    },
-    "test": {
-      "name": "test",
-      "type": "datafield",
-      "data": 0,
-      "input": "number",
-      "haha": {
-        "name": "haha",
-        "type": "datafield",
-        "data": 0,
-        "input": "number"
-      }
-    },
-    "added": {
-      "name": "added",
-      "type": "section",
-      "test": {
-        "name": "test",
-        "type": "section",
-        "haha": {
-          "name": "haha",
-          "type": "datafield",
-          "data": 0,
-          "input": "number"
-        }
-      }
-    },
-    "hey": {
-      "name": "hey",
-      "type": "datafield",
-      "data": 0,
-      "input": "number"
+    "yeah buddy": {
+      "name": "yeah buddy",
+      "type": "section"
     }
   },
   "TodoList": [
@@ -1725,6 +1663,16 @@
         "type": "datafield",
         "data": 0,
         "input": "number"
+      }
+    },
+    {
+      "date": "10/20/2019",
+      "id": "10202019",
+      "name": "Main Section",
+      "type": "section",
+      "yeah buddy": {
+        "name": "yeah buddy",
+        "type": "section"
       }
     }
   ]

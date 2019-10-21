@@ -46,29 +46,7 @@ function Sections({ getdayobject, setgetdayobject }) {
   ) : (
     <button onClick={clickShow}>Show {getdayobject.name}</button>
   );
-  var staticdata = {
-    name: "Main Section",
-    header1: {
-      name: "header1",
-      type: "section",
-      subheader1: {
-        name: "subheader1",
-        type: "subsection"
-      }
-    },
-    header2: {
-      name: "header2",
-      type: "section",
-      subheader2: {
-        name: "subheader2",
-        type: "subsection",
-        subsubheader2: {
-          name: "subsubheader2",
-          type: "subsubsection"
-        }
-      }
-    }
-  };
+
   // var test = updatename(staticdata, "header2", "changename");
   // console.log("THIS ACTUALLY WORKS", test);
 
@@ -81,11 +59,22 @@ function Sections({ getdayobject, setgetdayobject }) {
 
     let getd = await axios.get(url);
 
-    console.log(getd.data, getdayobject.name, editobjectname);
     let getobject = updatename(getd.data, getdayobject.name, editobjectname);
-    axios.put(url, getobject).then(response => {
-      setgetdayobject(getobject);
-    });
+    axios.put(url, getobject);
+
+    let url2 = "http://localhost:3001/days/";
+    var d = new Date();
+    var dstring = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+    var correctmonth = d.getMonth() + 1;
+    var getdate =
+      correctmonth.toString() +
+      d.getDate().toString() +
+      d.getFullYear().toString();
+    let getday = await axios.get(url2 + getdate);
+    getday = getday.data;
+    let dayobject = updatename(getday, getdayobject.name, editobjectname);
+    await axios.put(url2 + dayobject.id, dayobject);
+    setgetdayobject(dayobject);
   };
   const changeEditName = e => {
     setEditObjectName(e.target.value);
@@ -116,8 +105,23 @@ function Sections({ getdayobject, setgetdayobject }) {
     console.log("getdayobject", getdayobject);
     let updated = deletesection(getd.data, getdayobject);
     axios.put(url, updated);
-    setgetdayobject(updated);
-    //console.log("updated", updated);
+    //setgetdayobject(updated);
+
+    let url2 = "http://localhost:3001/days/";
+    var d = new Date();
+    var dstring = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+    var correctmonth = d.getMonth() + 1;
+    var getdate =
+      correctmonth.toString() +
+      d.getDate().toString() +
+      d.getFullYear().toString();
+
+    let getday = await axios.get(url2 + getdate);
+    getday = getday.data;
+    let updateday = deletesection(getday, getdayobject);
+    axios.put(url2 + updateday.id, updateday);
+    setgetdayobject(updateday);
+    console.log("this is a updateday", updateday);
   };
   return (
     <div>

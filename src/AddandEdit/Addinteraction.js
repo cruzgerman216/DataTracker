@@ -102,7 +102,6 @@ function Addinteraction({ getdayobject, setgetdayobject }) {
       setgetdayobject(getnewdata[getnewdata.length - 1]);
       //setgetdayobject(updated);
     });
-    axios.put("http://localhost:3001/days3/10182019", { tofsfd: "dfg" });
   };
 
   const submitaddsectionField = async e => {

@@ -164,21 +164,6 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
 
   const submitUpdateDatafield = async e => {
     e.preventDefault();
-    // var url = "http://localhost:3001/dayObject";
-    // let getd = await getdata();
-
-    // // await console.log(getd);
-    // if (getd == getdayobject) {
-    //   console.log("this is getdayobject");
-    // } else {
-    //   var updated = updatedata(getd, getdayobject);
-    //   console.log("this si getdayobject", updated);
-    // }
-    // // getd[newdata] = { name: newdata, type: "section" };
-    // axios.put(url, updated).then(response => {
-    //   setgetdayobject(updated);
-    // });
-
     let url = "http://localhost:3001/days/";
     let d = new Date();
     let correctmonth = d.getMonth() + 1;
@@ -206,7 +191,6 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
     console.log(e.target.value);
   };
 
-  console.log();
   const deleteDataField = async e => {
     console.log("YOU ARE INSIDE DELETE");
     var url = "http://localhost:3001/dayObject";
@@ -215,7 +199,23 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
     console.log("getdayobject", getdayobject);
     let updated = deletedata(getd, getdayobject);
     axios.put(url, updated);
-    setgetdayobject(updated);
+    // setgetdayobject(updated);
+
+    let url2 = "http://localhost:3001/days/";
+    let d = new Date();
+    let correctmonth = d.getMonth() + 1;
+    let getdate =
+      correctmonth.toString() +
+      d.getDate().toString() +
+      d.getFullYear().toString();
+    let getday = await axios.get(url2 + getdate);
+    getday = getday.data;
+
+    let updateday = deletedata(getday, getdayobject);
+    console.log("this is updateday", updateday);
+    axios.put(url2 + updateday.id, updateday).then(response => {
+      setgetdayobject(updateday);
+    });
     // console.log("updated", updated);
   };
 
@@ -233,9 +233,23 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
 
     let getd = await axios.get(url);
     let getobject = updatename(getd.data, getdayobject.name, DFname);
-    axios.put(url, getobject).then(response => {
-      setgetdayobject(getobject);
-    });
+    await axios.put(url, getobject);
+
+    let url2 = "http://localhost:3001/days/";
+    var d = new Date();
+    var dstring = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+    var correctmonth = d.getMonth() + 1;
+    var getdate =
+      correctmonth.toString() +
+      d.getDate().toString() +
+      d.getFullYear().toString();
+
+    let getday = await axios.get(url2 + getdate);
+    getday = getday.data;
+    let getcurrentday = updatename(getday, getdayobject.name, DFname);
+    console.log("get current day", getcurrentday);
+    await axios.put(url2 + getcurrentday.id, getcurrentday);
+    setgetdayobject(getcurrentday);
   };
   const editDF = editdf ? (
     <div>
@@ -252,18 +266,22 @@ function DataField({ objectname, getdayobject, setgetdayobject }) {
   );
 
   const resetDataField = async () => {
-    var url = "http://localhost:3001/dayObject";
-    let getd = await getdata();
-    // await console.log(getd);
-    if (getd == getdayobject) {
-      console.log("this is getdayobject");
-    } else {
-      var rd = await resetdata(getd, getdayobject);
-      console.log("this si getdayobject", rd);
-      console.log("you reseted data");
-    }
+    let url2 = "http://localhost:3001/days/";
+    let d = new Date();
+    let correctmonth = d.getMonth() + 1;
+    let getdate =
+      correctmonth.toString() +
+      d.getDate().toString() +
+      d.getFullYear().toString();
+    let getday = await axios.get(url2 + getdate);
+    getday = getday.data;
+
+    var rd = await resetdata(getday, getdayobject);
+    console.log("this si getdayobject", rd);
+    console.log("you reseted data");
     // getd[newdata] = { name: newdata, type: "section" };
-    await axios.put(url, rd).then(response => {
+    console.log("this is rd", rd);
+    await axios.put(url2 + rd.id, rd).then(response => {
       setgetdayobject(rd);
     });
   };
